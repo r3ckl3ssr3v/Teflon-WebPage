@@ -1,1 +1,383 @@
-!function(){"use strict";function c(t,r){var n=new PerformanceObserver(function(t){for(var n=t.getEntries(),e=0;e<n.length;e++)r(n[e])});return n.observe({type:t,buffered:!0}),function(){n&&(n.disconnect(),n=null)}}var u,f,d,m,s;function v(){u&&u()}function h(){f&&f()}function p(){d&&d()}function l(t,n){for(var e=t||{},r=0;r<n.length;r++)e=void 0===e?e:e[n[r]];return e}function e(t){var n;if(t)try{n=function(t){var n,e,r={};for(e in t||{})"string"==typeof t[e]&&(r[e]=t[e]);return n=Object.keys(r).length?JSON.stringify(r):n}(JSON.parse(t))}catch(t){}return n}function r(t,n,e){return l(n.t,["dataset",t])||e}function w(t,n){t=r(t,n,"")||[];return"string"==typeof t?t.split(","):t}var o={},a={};function i(n,e,t){return t.some(function(t){return 0===n.indexOf(t)||0===e.indexOf(t)})}function _(e,r){return function(t){var n=t.name.replace(/^\d/,"_").replace(/\W/g,"_");"mark"===t.entryType?i(n,t.name,r.o)&&(o[n]=Math.round(t.startTime)||0):i(n,t.name,r.i)&&(a[n]=Math.round(t.duration)||0),n=e,Object.keys(o).length&&(n.custom_marks=JSON.stringify(o)),Object.keys(a).length&&(n.custom_measures=JSON.stringify(a))}}function M(){m&&m(),s&&s()}function t(t,n){var e=t;if(window.LayoutShift)try{var r=0;u=c("layout-shift",function(t){r+=t.hadRecentInput?0:t.value,e.cumulative_layout_shift=Math.round(1e3*r)/1e3}),e.cumulative_layout_shift=Math.round(1e3*r)/1e3}catch(t){v()}var o=t;if(window.LargestContentfulPaint)try{f=c("largest-contentful-paint",function(t){o.largest_contentful_paint=Math.round(t.startTime)})}catch(t){h()}var a=t;if(window.PerformanceElementTiming)try{var i=document.querySelector("[data-bilmur-mie]");i&&i.hasAttribute("elementtiming")&&(d=c("element",function(t){t.element===i&&(a.mie_renderTime=Math.round(t.renderTime),p())}))}catch(t){p()}if(window.PerformanceMeasure&&window.PerformanceMark){n.i=w("customMeasuresPrefixes",n),n.o=w("customMarksPrefixes",n);t=_(t,n);try{m=c("mark",t),s=c("measure",t)}catch(t){M()}}}function b(t,n){t.provider=r("provider",n),t.service=r("service",n),t.custom_properties=e(l(n.t,["dataset","customproperties"]))}function g(t){return 0<t||0===t}function y(n){var t,e,r=l(performance,["timing"])||{};r.navigationStart&&(e=0===(t=(t=performance.getEntriesByType("navigation"))&&t[0]?t[0]:{}).startTime?2:1,["unloadEventStart","unloadEventEnd","redirectStart","redirectEnd","fetchStart","domainLookupStart","domainLookupEnd","connectStart","connectEnd","secureConnectionStart","requestStart","responseStart","responseEnd","domLoading","domInteractive","domContentLoadedEventStart","domContentLoadedEventEnd","domComplete","loadEventStart","loadEventEnd"].forEach(function(t){n["nt_"+t]="number"==typeof r[t=t]&&"number"==typeof r.navigationStart&&!(r[t]<=0||r.navigationStart<=0)&&0<=(t=r[t]-r.navigationStart)?t:void 0}),2==e&&"number"==typeof t.secureConnectionStart&&0<t.secureConnectionStart&&(n.nt_secureConnectionStart=Math.floor(t.secureConnectionStart)),n.nt_redirectCount=t.redirectCount,n.nt_nextHopProtocol=t.nextHopProtocol,n.nt_api_level=e)}function E(n,t){function e(t,n){var e;n.u+=t.decodedBodySize||0,"cache"===(e=t).deliveryType||0===e.duration||0<e.encodedBodySize&&0<e.transferSize&&e.transferSize<e.encodedBodySize||!(0<e.transferSize)&&(0<e.decodedBodySize||e.duration<30)?n.m+=t.decodedBodySize||0:n.v+=t.transferSize||0}function r(t){n[t.h+"_size"]=t.u,n[t.h+"_transferred"]=t.v,0<t.u&&(n[t.h+"_cache_percent"]=Math.floor(t.m/t.u*100))}if(n.nt_domContentLoadedEventStart){for(var o=performance.getEntriesByType("resource")||[],a={h:"resource",v:0,u:0,m:0},i={h:"js",v:0,u:0,m:0},c={h:"blocking",v:0,u:0,m:0},u=0;u<o.length;u++)o[u].responseEnd<n.nt_domContentLoadedEventStart&&(e(o[u],a),"script"===o[u].initiatorType&&e(o[u],i),"blocking"===o[u].renderBlockingStatus)&&e(o[u],c);r(a),r(i),r(c),t.p&&(n.last_resource_end=o.reduce(function(t,n){return Math.round(Math.max(t,n.responseEnd))},0))}}function q(t,n){var e=t;try{var r=0;document.createNodeIterator(document,128,function(t){return-1<(t.nodeValue||"").indexOf("served from batcache in")?1:2}).nextNode()&&(r=1),e.batcache_hit=r}catch(t){}b(t,n),e=t,r=l(navigator,["connection"])||{},e.effective_connection_type=r.effectiveType,g(r.rtt)&&(e.rtt=r.rtt),g(r.downlink)&&(e.downlink=Math.round(1e3*r.downlink)),(e=t).host_name=l(location,["hostname"]),e.url_path=l(location,["pathname"]),y(t);for(var o=t,a=performance.getEntriesByType("paint")||[],i=0;i<a.length;i++)"first-paint"===a[i].name&&(o.start_render=Math.round(a[i].startTime)),"first-contentful-paint"===a[i].name&&(o.first_contentful_paint=Math.round(a[i].startTime));E(t,n)}var n=2e3;var S,O=!1,k={};function x(t){(t=t||{}).l&&(O=!0),v(),h(),p(),M(),O||"loading"===document.readyState||(O=!0,q(k,t),S(k))}var L=function(t){var n,e="";for(n in t)void 0!==t[n]&&(e+="&"+n+"="+encodeURIComponent(t[n]));e&&((new Image).src="https://pixel.wp.com/boom.gif?bilmur=1"+e)};if(window.performance&&window.performance.getEntriesByType){S=L;var C,j,I,J,N,L={},P=(L.t=document.getElementById("bilmur")||{},"true"===r("allowIframe",L));try{if(window.self!==window.top&&!P)return}catch(t){if(!P)return}t(k,L),C=x,j=L,"hidden"===document.visibilityState?(j.l=!0,C(j)):(I=function(){"hidden"===document.visibilityState&&(document.removeEventListener("visibilitychange",I),j.l=!1,C(j))},document.addEventListener("visibilitychange",I)),J=x,N=L,"complete"===document.readyState?setTimeout(T,n):addEventListener("load",function(){setTimeout(T,n)})}function T(){var t=performance.getEntriesByType("resource").reduce(function(t,n){return Math.max(t,n.responseEnd)},0),t=Math.floor(performance.now())-Math.floor(t);if(n<t)return N.p=!0,J(N);setTimeout(T,.75*n<=t?.05*n:.25*n)}}();
+(function() {
+    "use strict";
+
+    // Function to observe performance metrics
+    function observePerformance(type, callback) {
+        var observer = new PerformanceObserver(function(list) {
+            var entries = list.getEntries();
+            for (var i = 0; i < entries.length; i++) {
+                callback(entries[i]);
+            }
+        });
+        observer.observe({ type: type, buffered: true });
+        return function() {
+            if (observer) {
+                observer.disconnect();
+                observer = null;
+            }
+        };
+    }
+
+    var layoutShiftObserver, largestContentfulPaintObserver, elementTimingObserver, markObserver, measureObserver;
+
+    // Callback to handle layout shifts
+    function handleLayoutShift() {
+        if (layoutShiftObserver) {
+            layoutShiftObserver();
+        }
+    }
+
+    // Callback to handle largest contentful paint
+    function handleLargestContentfulPaint() {
+        if (largestContentfulPaintObserver) {
+            largestContentfulPaintObserver();
+        }
+    }
+
+    // Callback to handle element timing
+    function handleElementTiming() {
+        if (elementTimingObserver) {
+            elementTimingObserver();
+        }
+    }
+
+    // Utility function to access nested properties
+    function getNestedProperty(obj, keys) {
+        for (var i = 0; i < keys.length; i++) {
+            obj = obj ? obj[keys[i]] : undefined;
+        }
+        return obj;
+    }
+
+    // Utility function to parse JSON safely
+    function parseJSONSafely(json) {
+        var parsed;
+        if (json) {
+            try {
+                parsed = JSON.parse(json);
+                var result = {};
+                for (var key in parsed) {
+                    if (typeof parsed[key] === 'string') {
+                        result[key] = parsed[key];
+                    }
+                }
+                return Object.keys(result).length ? JSON.stringify(result) : undefined;
+            } catch (e) {}
+        }
+        return parsed;
+    }
+
+    // Function to get data attribute value
+    function getDataAttribute(attribute, context, defaultValue) {
+        return getNestedProperty(context.t, ["dataset", attribute]) || defaultValue;
+    }
+
+    // Function to split attribute value into array
+    function splitAttributeValue(attribute, context) {
+        attribute = getDataAttribute(attribute, context, "") || [];
+        return typeof attribute === 'string' ? attribute.split(",") : attribute;
+    }
+
+    var customMarks = {}, customMeasures = {};
+
+    // Function to check if entry name matches prefix
+    function matchesPrefix(entryName, fullName, prefixes) {
+        return prefixes.some(function(prefix) {
+            return entryName.indexOf(prefix) === 0 || fullName.indexOf(prefix) === 0;
+        });
+    }
+
+    // Function to handle custom performance entries
+    function handlePerformanceEntries(context, prefixes) {
+        return function(entry) {
+            var name = entry.name.replace(/^\d/, "_").replace(/\W/g, "_");
+            if (entry.entryType === "mark") {
+                if (matchesPrefix(name, entry.name, prefixes.o)) {
+                    customMarks[name] = Math.round(entry.startTime) || 0;
+                }
+            } else if (entry.entryType === "measure") {
+                if (matchesPrefix(name, entry.name, prefixes.i)) {
+                    customMeasures[name] = Math.round(entry.duration) || 0;
+                }
+            }
+            context.custom_marks = JSON.stringify(customMarks);
+            context.custom_measures = JSON.stringify(customMeasures);
+        };
+    }
+
+    // Function to stop all observers
+    function stopAllObservers() {
+        if (markObserver) markObserver();
+        if (measureObserver) measureObserver();
+    }
+
+    // Initialize performance tracking
+    function initializePerformanceTracking(context, config) {
+        var performanceData = context;
+
+        // Layout Shift tracking
+        if (window.LayoutShift) {
+            try {
+                var layoutShiftCumulative = 0;
+                layoutShiftObserver = observePerformance("layout-shift", function(entry) {
+                    layoutShiftCumulative += entry.hadRecentInput ? 0 : entry.value;
+                    performanceData.cumulative_layout_shift = Math.round(layoutShiftCumulative * 1000) / 1000;
+                });
+                performanceData.cumulative_layout_shift = Math.round(layoutShiftCumulative * 1000) / 1000;
+            } catch (e) {
+                handleLayoutShift();
+            }
+        }
+
+        // Largest Contentful Paint tracking
+        if (window.LargestContentfulPaint) {
+            try {
+                largestContentfulPaintObserver = observePerformance("largest-contentful-paint", function(entry) {
+                    performanceData.largest_contentful_paint = Math.round(entry.startTime);
+                });
+            } catch (e) {
+                handleLargestContentfulPaint();
+            }
+        }
+
+        // Element Timing tracking
+        if (window.PerformanceElementTiming) {
+            try {
+                var element = document.querySelector("[data-bilmur-mie]");
+                if (element && element.hasAttribute("elementtiming")) {
+                    elementTimingObserver = observePerformance("element", function(entry) {
+                        if (entry.element === element) {
+                            performanceData.mie_renderTime = Math.round(entry.renderTime);
+                            handleElementTiming();
+                        }
+                    });
+                }
+            } catch (e) {
+                handleElementTiming();
+            }
+        }
+
+        // Custom Marks and Measures tracking
+        if (window.PerformanceMeasure && window.PerformanceMark) {
+            config.i = splitAttributeValue("customMeasuresPrefixes", config);
+            config.o = splitAttributeValue("customMarksPrefixes", config);
+            var performanceHandler = handlePerformanceEntries(performanceData, config);
+
+            try {
+                markObserver = observePerformance("mark", performanceHandler);
+                measureObserver = observePerformance("measure", performanceHandler);
+            } catch (e) {
+                stopAllObservers();
+            }
+        }
+    }
+
+    // Function to set provider and service data
+    function setProviderAndServiceData(data, context) {
+        data.provider = getDataAttribute("provider", context);
+        data.service = getDataAttribute("service", context);
+        data.custom_properties = parseJSONSafely(getNestedProperty(context.t, ["dataset", "customproperties"]));
+    }
+
+    // Check if a value is valid number
+    function isValidNumber(value) {
+        return value > 0 || value === 0;
+    }
+
+    // Function to set navigation timing data
+    function setNavigationTimingData(data) {
+        var timing = getNestedProperty(performance, ["timing"]) || {};
+        if (timing.navigationStart) {
+            var apiLevel = (performance.getEntriesByType("navigation")[0] || {}).startTime === 0 ? 2 : 1;
+            [
+                "unloadEventStart", "unloadEventEnd", "redirectStart", "redirectEnd", "fetchStart",
+                "domainLookupStart", "domainLookupEnd", "connectStart", "connectEnd", "secureConnectionStart",
+                "requestStart", "responseStart", "responseEnd", "domLoading", "domInteractive",
+                "domContentLoadedEventStart", "domContentLoadedEventEnd", "domComplete", "loadEventStart", "loadEventEnd"
+            ].forEach(function(event) {
+                var value = timing[event];
+                data["nt_" + event] = typeof value === 'number' && typeof timing.navigationStart === 'number' && value > 0 && timing.navigationStart > 0 && (value = value - timing.navigationStart) >= 0 ? value : undefined;
+            });
+            if (apiLevel === 2 && typeof timing.secureConnectionStart === 'number' && timing.secureConnectionStart > 0) {
+                data.nt_secureConnectionStart = Math.floor(timing.secureConnectionStart);
+            }
+            data.nt_redirectCount = timing.redirectCount;
+            data.nt_nextHopProtocol = timing.nextHopProtocol;
+            data.nt_api_level = apiLevel;
+        }
+    }
+
+    // Function to set resource timing data
+    function setResourceTimingData(data, config) {
+        function accumulateSize(entry, accumulator) {
+            var transferSize = entry.transferSize;
+            var encodedBodySize = entry.encodedBodySize;
+            var decodedBodySize = entry.decodedBodySize;
+            accumulator.u += decodedBodySize || 0;
+            if (entry.deliveryType === "cache" || entry.duration === 0 || encodedBodySize > 0 && transferSize > 0 && transferSize < encodedBodySize || transferSize <= 0 && (decodedBodySize > 0 || entry.duration < 30)) {
+                accumulator.m += decodedBodySize || 0;
+            } else {
+                accumulator.v += transferSize || 0;
+            }
+        }
+
+        function setResourceData(accumulator) {
+            data[accumulator.h + "_size"] = accumulator.u;
+            data[accumulator.h + "_transferred"] = accumulator.v;
+            if (accumulator.u > 0) {
+                data[accumulator.h + "_cache_percent"] = Math.floor(accumulator.m / accumulator.u * 100);
+            }
+        }
+
+        if (data.nt_domContentLoadedEventStart) {
+            var resources = performance.getEntriesByType("resource") || [];
+            var resourceAccumulator = { h: "resource", v: 0, u: 0, m: 0 };
+            var jsAccumulator = { h: "js", v: 0, u: 0, m: 0 };
+            var blockingAccumulator = { h: "blocking", v: 0, u: 0, m: 0 };
+
+            for (var i = 0; i < resources.length; i++) {
+                if (resources[i].responseEnd < data.nt_domContentLoadedEventStart) {
+                    accumulateSize(resources[i], resourceAccumulator);
+                    if (resources[i].initiatorType === "script") {
+                        accumulateSize(resources[i], jsAccumulator);
+                    }
+                    if (resources[i].renderBlockingStatus === "blocking") {
+                        accumulateSize(resources[i], blockingAccumulator);
+                    }
+                }
+            }
+
+            setResourceData(resourceAccumulator);
+            setResourceData(jsAccumulator);
+            setResourceData(blockingAccumulator);
+
+            if (config.p) {
+                data.last_resource_end = resources.reduce(function(max, entry) {
+                    return Math.max(max, Math.round(entry.responseEnd));
+                }, 0);
+            }
+        }
+    }
+
+    // Function to set connection and navigation data
+    function setConnectionAndNavigationData(data, config) {
+        var effectiveType = getNestedProperty(navigator, ["connection", "effectiveType"]);
+        if (effectiveType) {
+            data.effective_connection_type = effectiveType;
+        }
+        var rtt = getNestedProperty(navigator, ["connection", "rtt"]);
+        if (isValidNumber(rtt)) {
+            data.rtt = rtt;
+        }
+        var downlink = getNestedProperty(navigator, ["connection", "downlink"]);
+        if (isValidNumber(downlink)) {
+            data.downlink = Math.round(downlink * 1000);
+        }
+        data.host_name = getNestedProperty(location, ["hostname"]);
+        data.url_path = getNestedProperty(location, ["pathname"]);
+
+        setNavigationTimingData(data);
+
+        var paints = performance.getEntriesByType("paint") || [];
+        for (var i = 0; i < paints.length; i++) {
+            if (paints[i].name === "first-paint") {
+                data.start_render = Math.round(paints[i].startTime);
+            } else if (paints[i].name === "first-contentful-paint") {
+                data.first_contentful_paint = Math.round(paints[i].startTime);
+            }
+        }
+
+        setResourceTimingData(data, config);
+    }
+
+    var sendInterval = 2000;
+    var isSent = false;
+    var performanceData = {};
+
+    // Function to send performance data
+    function sendPerformanceData(config) {
+        config = config || {};
+        if (config.l) {
+            isSent = true;
+        }
+        handleLayoutShift();
+        handleLargestContentfulPaint();
+        handleElementTiming();
+        stopAllObservers();
+
+        if (!isSent && document.readyState !== "loading") {
+            isSent = true;
+            setConnectionAndNavigationData(performanceData, config);
+            sendToServer(performanceData);
+        }
+    }
+
+    var sendToServer = function(data) {
+        var queryString = "";
+        for (var key in data) {
+            if (data[key] !== undefined) {
+                queryString += "&" + key + "=" + encodeURIComponent(data[key]);
+            }
+        }
+        if (queryString) {
+            (new Image()).src = "https://pixel.wp.com/boom.gif?bilmur=1" + queryString;
+        }
+    };
+
+    if (window.performance && window.performance.getEntriesByType) {
+        var config = {};
+        var allowIframe = getDataAttribute("allowIframe", config) === "true";
+        try {
+            if (window.self !== window.top && !allowIframe) {
+                return;
+            }
+        } catch (e) {
+            if (!allowIframe) {
+                return;
+            }
+        }
+
+        initializePerformanceTracking(performanceData, config);
+
+        if (document.visibilityState === "hidden") {
+            config.l = true;
+            sendPerformanceData(config);
+        } else {
+            var visibilityChangeHandler = function() {
+                if (document.visibilityState === "hidden") {
+                    document.removeEventListener("visibilitychange", visibilityChangeHandler);
+                    config.l = false;
+                    sendPerformanceData(config);
+                }
+            };
+            document.addEventListener("visibilitychange", visibilityChangeHandler);
+        }
+
+        var loadHandler = function() {
+            setTimeout(sendPerformanceData, sendInterval);
+        };
+
+        if (document.readyState === "complete") {
+            setTimeout(loadHandler, sendInterval);
+        } else {
+            addEventListener("load", function() {
+                setTimeout(loadHandler, sendInterval);
+            });
+        }
+
+        function sendPerformanceDataPeriodically() {
+            var maxResponseEnd = performance.getEntriesByType("resource").reduce(function(max, entry) {
+                return Math.max(max, entry.responseEnd);
+            }, 0);
+            var timeSinceLastResource = Math.floor(performance.now()) - Math.floor(maxResponseEnd);
+            if (sendInterval < timeSinceLastResource) {
+                config.p = true;
+                sendPerformanceData(config);
+            } else {
+                setTimeout(sendPerformanceDataPeriodically, timeSinceLastResource <= 0.75 * sendInterval ? 0.05 * sendInterval : 0.25 * sendInterval);
+            }
+        }
+
+        sendPerformanceDataPeriodically();
+    }
+})();
